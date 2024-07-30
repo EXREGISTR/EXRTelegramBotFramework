@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBotFramework", "EXRTelegramBotFramework\TelegramBotFramework.csproj", "{02E681D7-8165-4D70-9CF9-B02D99D08A74}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBotFramework.Example", "TelegramBotFramework.Tests\TelegramBotFramework.Example.csproj", "{9023FDEF-E923-4046-8A6E-EE0749ED5E45}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramBotFramework", "TelegramBotFramework\TelegramBotFramework.csproj", "{2D008F2D-6262-4650-953D-4FEF8B295405}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{02E681D7-8165-4D70-9CF9-B02D99D08A74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02E681D7-8165-4D70-9CF9-B02D99D08A74}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{02E681D7-8165-4D70-9CF9-B02D99D08A74}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{02E681D7-8165-4D70-9CF9-B02D99D08A74}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9023FDEF-E923-4046-8A6E-EE0749ED5E45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9023FDEF-E923-4046-8A6E-EE0749ED5E45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9023FDEF-E923-4046-8A6E-EE0749ED5E45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9023FDEF-E923-4046-8A6E-EE0749ED5E45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D008F2D-6262-4650-953D-4FEF8B295405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D008F2D-6262-4650-953D-4FEF8B295405}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D008F2D-6262-4650-953D-4FEF8B295405}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D008F2D-6262-4650-953D-4FEF8B295405}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
