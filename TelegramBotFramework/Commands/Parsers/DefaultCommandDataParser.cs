@@ -1,11 +1,16 @@
 ﻿using System.Reflection;
 using TelegramBotFramework.Commands.Parsers.Contracts;
+using TelegramBotFramework.Exceptions;
 
 namespace TelegramBotFramework.Commands.Parsers {
     internal class DefaultCommandDataParser : ICommandDataParser {
         public TData Parse<TData>(string[] argumentNames, string[] arguments) where TData : class {
+            if (arguments.Length == 0) {
+                throw new CommandSignatureException("Тo arguments were passed for the command that requires arguments");
+            }
+
             if (argumentNames.Length != arguments.Length) {
-                throw new ArgumentException("The number of argument names must match the number of arguments.");
+                throw new CommandSignatureException("The number of argument names must match the number of arguments");
             }
 
             var data = Activator.CreateInstance<TData>();
@@ -14,8 +19,10 @@ namespace TelegramBotFramework.Commands.Parsers {
 
             var length = argumentNames.Length;
             for (int i = 0; i < length; i++) {
-                string argumentName = argumentNames[i];
                 string argument = arguments[i];
+                if (argument == "default") continue;
+
+                string argumentName = argumentNames[i];
 
                 var property = properties.FirstOrDefault(
                     p => p.Name.Equals(argumentName, StringComparison.OrdinalIgnoreCase));

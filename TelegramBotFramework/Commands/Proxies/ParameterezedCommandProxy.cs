@@ -3,7 +3,6 @@ using Telegram.Bot.Types;
 using TelegramBotFramework.Commands.Contexts;
 using TelegramBotFramework.Commands.Parsers.Contracts;
 using TelegramBotFramework.Commands.Proxies.Contracts;
-using TelegramBotFramework.Commands.Results;
 
 namespace TelegramBotFramework.Commands.Proxies {
     internal class ParameterezedCommandProxy<TData>(
@@ -12,9 +11,9 @@ namespace TelegramBotFramework.Commands.Proxies {
         ICommandDataParser parser,
         IServiceProvider services)
         : IParameterizedCommandProxy where TData : class {
-        public Task<CommandResult> Execute(Chat chat, User user, string[] arguments) {
+        public Task Execute(Chat chat, User user, string[] arguments) {
             if (arguments.Length != argumentNames.Length) {
-                return Task.FromResult(CommandResult.Failure("Not enough parameters"));
+                return Task.FromResult(CommandStepResult.Failure("Not enough parameters"));
             }
 
             var data = parser.Parse<TData>(argumentNames, arguments);

@@ -3,11 +3,11 @@ using Microsoft.Extensions.Options;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 
-namespace TelegramBotFramework {
-    internal class TelegramMainWorker(
-        ITelegramBotClient bot, 
+namespace TelegramBotFramework.Services {
+    internal class TelegramMessageReceiver(
+        ITelegramBotClient bot,
         IUpdateHandler handler,
-        IOptions<ReceiverOptions> receiverOptions) 
+        IOptions<ReceiverOptions> receiverOptions)
         : BackgroundService {
         protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
             while (!stoppingToken.IsCancellationRequested) {

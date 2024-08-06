@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Options;
 using System.Text.Json;
 using TelegramBotFramework.Commands;
 using TelegramBotFramework.Storages.Contracts;
@@ -8,8 +7,8 @@ using TelegramBotFramework.Storages.Options;
 namespace TelegramBotFramework.Storages.DistributeCached {
     internal class UserStatesDistributeCached(
         IDistributedCache cache,
-        IOptions<CachingOptions> options) : IUserStatesStorage {
-        private readonly TimeSpan cacheTime = TimeSpan.FromMinutes(options.Value.CacheTimeInMinutes);
+        CachingOptions options) : IUserStatesStorage {
+        private readonly TimeSpan cacheTime = TimeSpan.FromMinutes(options.CacheTimeInMinutes);
 
         public async Task<CommandStepIdentity?> GetActiveStep(long chatId, long userId) {
             string key = GetKey(chatId, userId);

@@ -1,5 +1,7 @@
-﻿namespace TelegramBotFramework.Processors.Contracts {
-    internal interface IUpdateProcessor<TUpdateData> {
-        public Task Process(TUpdateData data);
+﻿using Telegram.Bot.Types;
+
+namespace TelegramBotFramework.Processors.Contracts {
+    public interface IUpdateProcessor {
+        public Task Process(Update update);
     }
 }

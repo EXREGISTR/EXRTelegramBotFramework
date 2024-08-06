@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Options;
 using TelegramBotFramework.Commands;
 using TelegramBotFramework.Storages.Contracts;
 using TelegramBotFramework.Storages.Options;
@@ -7,8 +6,8 @@ using TelegramBotFramework.Storages.Options;
 namespace TelegramBotFramework.Storages.MemoryCached {
     internal class UserStatesMemoryCached(
         IMemoryCache cache,
-        IOptions<CachingOptions> options) : IUserStatesStorage {
-        private readonly TimeSpan cacheTime = TimeSpan.FromMinutes(options.Value.CacheTimeInMinutes);
+        CachingOptions options) : IUserStatesStorage {
+        private readonly TimeSpan cacheTime = TimeSpan.FromMinutes(options.CacheTimeInMinutes);
 
         public Task<CommandStepIdentity?> GetActiveStep(long chatId, long userId) {
             string key = GetKey(chatId, userId);

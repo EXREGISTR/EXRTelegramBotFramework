@@ -1,9 +1,13 @@
 ﻿using Telegram.Bot.Types.Enums;
 
 namespace TelegramBotFramework.Commands.Descriptors {
-    internal record CommandDescriptor<TProxy>(
+    internal enum CommandType { 
+        Common, Parameterized, StepByStep
+    }
+
+    internal record CommandDescriptor(
         string Code,
         string Description,
-        TProxy Proxy,
+        CommandType Type,
         ChatType[] AvailableChatTypes);
 }

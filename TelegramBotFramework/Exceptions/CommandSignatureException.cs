@@ -1,3 +1,4 @@
 ﻿namespace TelegramBotFramework.Exceptions {
-    public class CommandSignatureException(string message) : Exception(message);
+    public class CommandSignatureException(string message) 
+        : Exception(message);
 }
