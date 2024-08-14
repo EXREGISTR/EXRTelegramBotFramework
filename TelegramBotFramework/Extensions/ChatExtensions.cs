@@ -2,8 +2,9 @@
 using Telegram.Bot.Types.Enums;
 
 namespace TelegramBotFramework.Extensions {
+
     public static class ChatExtensions {
-        public static string GetName(this Chat chat) {
+        public static string GetTitle(this Chat chat) {
             return chat.Type switch {
                 ChatType.Group => chat.GetGroupOrChannelTitle(),
                 ChatType.Private => GetPrivateChatName(),

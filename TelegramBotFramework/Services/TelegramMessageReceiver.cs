@@ -11,7 +11,7 @@ namespace TelegramBotFramework.Services {
         : BackgroundService {
         protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
             while (!stoppingToken.IsCancellationRequested) {
-                await bot.ReceiveAsync(handler, receiverOptions.Value, stoppingToken);
+                await bot.ReceiveAsync(handler, receiverOptions.Value, stoppingToken).ConfigureAwait(false);
             }
         }
     }

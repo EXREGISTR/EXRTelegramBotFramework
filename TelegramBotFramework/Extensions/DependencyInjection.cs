@@ -3,19 +3,11 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
-using Telegram.Bot.Types.Enums;
-using TelegramBotFramework.Options;
-using TelegramBotFramework.Processors.Contracts;
-using TelegramBotFramework.Processors.UpdateProcessors;
 using TelegramBotFramework.Services;
 
 namespace TelegramBotFramework {
     public static class DependencyInjection {
-        public static IServiceCollection AddTelegramBot(this IServiceCollection services,
-            Action<TelegramBotFrameworkOptions> configurator) {
-            var options = new TelegramBotFrameworkOptions(services);
-            configurator(options);
-
+        public static IServiceCollection AddTelegramBot(this IServiceCollection services) {
             services.AddHostedService<TelegramMessageReceiver>();
 
             services.TryAddSingleton<ITelegramBotClient>(services => {
@@ -25,8 +17,6 @@ namespace TelegramBotFramework {
             });
 
             services.TryAddSingleton<IUpdateHandler, UpdateHandler>();
-            services.TryAddKeyedSingleton<IUpdateProcessor, MessageProcessor>(UpdateType.Message);
-            services.TryAddKeyedSingleton<IUpdateProcessor, CallbackQueryProcessor>(UpdateType.CallbackQuery);
             return services;
         }
     }

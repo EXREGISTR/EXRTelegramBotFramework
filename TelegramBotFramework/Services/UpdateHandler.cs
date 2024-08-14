@@ -4,7 +4,7 @@ using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
-using TelegramBotFramework.Processors.Contracts;
+using TelegramBotFramework.UpdateProcessing;
 
 namespace TelegramBotFramework.Services {
     internal class UpdateHandler(
@@ -12,7 +12,8 @@ namespace TelegramBotFramework.Services {
         ILogger<UpdateHandler> logger)
         : IUpdateHandler {
         public async Task HandleUpdateAsync(ITelegramBotClient bot, Update update, CancellationToken token) {
-            var processor = services.GetRequiredKeyedService<IUpdateProcessor>(update.Type);
+            var processor = services.GetKeyedService<IRequestProcessor>(update.Type);
+            var scope = services.CreateScope().ServiceProvider;
 
             if (processor == null) {
                 logger.LogWarning("Impossible to handle update of type {updateType}", update.Type);
@@ -20,7 +21,7 @@ namespace TelegramBotFramework.Services {
             }
 
             try {
-                await processor.Process(update);
+                await processor.Process(scope, update).ConfigureAwait(false);
             } catch (Exception exception) {
                 HandleError(exception);
             }
