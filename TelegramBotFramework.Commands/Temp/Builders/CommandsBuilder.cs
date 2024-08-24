@@ -13,7 +13,7 @@ namespace TelegramBotFramework.Commands.Temp.Builders
             where TCommand : class, ICommand
         {
 
-            var entry = new CommandEntry(CommandType.Common);
+            var entry = new CommandDescriptorCreationData(CommandType.Common);
             var builder = new CommandBuilder(entry, typeof(TCommand));
             builders.Add(builder);
             return builder;
@@ -24,7 +24,7 @@ namespace TelegramBotFramework.Commands.Temp.Builders
             where TCommand : class, ICommand<TData>
             where TData : class
         {
-            var entry = new CommandEntry(CommandType.Parameterized);
+            var entry = new CommandDescriptorCreationData(CommandType.Parameterized);
             var builder = new ParameterizedCommandBuilder<TCommand, TData>(entry);
             builders.Add(builder);
             return builder;
@@ -34,7 +34,7 @@ namespace TelegramBotFramework.Commands.Temp.Builders
             where TCommand : class, ICommand<TData>
             where TData : class
         {
-            var entry = new CommandEntry(CommandType.Parameterized);
+            var entry = new CommandDescriptorCreationData(CommandType.Parameterized);
             var builder = new StepByStepCommandBuilder<TCommand, TData>(entry);
             builders.Add(builder);
             return builder;
@@ -54,40 +54,20 @@ namespace TelegramBotFramework.Commands.Temp.Builders
 
     public class CommandBuilder
     {
-        private readonly CommandEntry data;
+        private readonly CommandDescriptorCreationData data;
         private readonly Type commandType;
 
-        internal CommandBuilder(CommandEntry data, Type commandType)
+        internal CommandBuilder(CommandDescriptorCreationData data, Type commandType)
         {
             this.data = data;
             this.commandType = commandType;
         }
 
-        public CommandBuilder WithCode(string code)
-        {
-            if (string.IsNullOrWhiteSpace(code))
-            {
-                throw new InvalidDataException($"Invalid command code {code}");
-            }
-
-            data.Code = code;
-            return this;
-        }
-
-        public CommandBuilder WithHelp(string helpText)
-        {
-            if (string.IsNullOrWhiteSpace(helpText))
-            {
-                throw new InvalidDataException("Invalid help text");
-            }
-
-            data.Help = helpText;
-            return this;
-        }
-
         internal CommandDescriptor Build()
         {
             var commandCode = data.Code ?? CommandCodeCreator.Create(commandType);
+            data.AvailableChatTypes
+
             var availableChatTypes = data.AvailableChatTypes.Count > 0
                 ? data.AvailableChatTypes
                 : [ChatType.Private, ChatType.Group, ChatType.Supergroup];
@@ -104,7 +84,7 @@ namespace TelegramBotFramework.Commands.Temp.Builders
 
     public class ParameterizedCommandBuilder<TCommand, TData> : CommandBuilder
     {
-        internal ParameterizedCommandBuilder(CommandEntry data) : base(data, typeof(TCommand)) { }
+        internal ParameterizedCommandBuilder(CommandDescriptorCreationData data) : base(data, typeof(TCommand)) { }
 
 
     }

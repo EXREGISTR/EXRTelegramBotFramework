@@ -1,9 +1,8 @@
 ﻿using Telegram.Bot.Types.Enums;
 using TelegramBotFramework.Commands.Exceptions;
-using TelegramBotFramework.Commands.Utils.Parsers.Contracts;
 
 namespace TelegramBotFramework.Commands.Utils.Parsers {
-    internal partial class DefaultCommandParser(string botUsername) : ICommandParser {
+    internal class DefaultCommandParser(string botUsername) : ICommandParser {
         public CommandParsingResult Parse(string input, ChatType chatType) {
             if (!input.StartsWith('/')) throw new CommandSignatureException("Command should be starts with '/'");
 

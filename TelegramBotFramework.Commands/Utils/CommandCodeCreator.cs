@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace TelegramBotFramework.Commands.Builders {
+namespace TelegramBotFramework.Commands.Utils {
     internal partial class CommandCodeCreator {
         public static string Create(Type commandType) {
             var typeName = commandType.Name;

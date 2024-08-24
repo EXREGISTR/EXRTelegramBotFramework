@@ -1,10 +1,11 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Types;
 using TelegramBotFramework.Commands.Exceptions;
-using TelegramBotFramework.Commands.Extensions;
-using TelegramBotFramework.Commands.Utils.Parsers.Contracts;
+using TelegramBotFramework.Commands.Source;
+using TelegramBotFramework.Commands.Utils.Parsers;
 
-namespace TelegramBotFramework.Commands {
+namespace TelegramBotFramework.Commands
+{
     internal class CommandsController(
         ICommandParser parser,
         ITelegramBotClient bot,
@@ -32,18 +33,18 @@ namespace TelegramBotFramework.Commands {
         }
 
         public Task ExecuteState(Message message, CommandStateIdentity identity) {
-            var proxy = services.GetState(identity);
-            return proxy.Execute(chat, sender, message);
+            var proxy = services.GetStateExecutor(identity);
+            return proxy.Execute(message.Chat, message.From!, message);
         }
 
         private Task HandleCommand(Message message, string code) {
-            var proxy = services.GetCommand(code);
+            var proxy = services.GetCommandExecutor(code);
             return proxy.Execute(message.Chat, message.From!);
         }
 
         private Task HandleParameterizedCommand(Message message, string code, string[] arguments) {
             try {
-                var proxy = services.GetParameterizedCommand(code);
+                var proxy = services.GetParameterizedCommandExecutor(code);
                 return proxy.Execute(message.Chat, message.From!, arguments);
             } catch (CommandSignatureException exception) {
                 return bot.SendTextMessageAsync(message.Chat.Id, exception.Message, replyToMessageId: message.MessageId);
@@ -51,7 +52,7 @@ namespace TelegramBotFramework.Commands {
         }
 
         private Task HandleStatelessCommand(Message message, string code) {
-            var proxy = services.GetInitialState();
+            var proxy = services.GetInitialStateExecutor(code);
             return proxy.Execute(message.Chat, message.From!, message);
         }
     }

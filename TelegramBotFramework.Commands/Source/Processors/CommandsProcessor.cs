@@ -2,15 +2,8 @@
 using Telegram.Bot.Types;
 using TelegramBotFramework.Commands.Extensions;
 using TelegramBotFramework.Commands.Storages;
-using TelegramBotFramework.Commands.Storages.Cached;
 
-namespace TelegramBotFramework.Commands {
-    internal class HighPriorityCommandsProcessor : UpdateProcessor<Message> {
-        protected override Task Process(Message data, IServiceProvider services, IUpdateProcessor<Message> next) {
-
-        }
-    }
-
+namespace TelegramBotFramework.Commands.Processors {
     internal class CommandsProcessor : UpdateProcessor<Message> {
         protected override async Task Process(Message message, IServiceProvider services, IUpdateProcessor<Message> next) {
             var dataStorage = services.GetRequiredService<CommandStateIdentitiesStorage>();

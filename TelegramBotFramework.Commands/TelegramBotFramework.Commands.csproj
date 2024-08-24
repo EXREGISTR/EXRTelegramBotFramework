@@ -19,6 +19,7 @@
 		</AssemblyAttribute>
 	</ItemGroup>
 	<ItemGroup>
+	  <Folder Include="Extensions\ServiceProvider\" />
 	  <Folder Include="Utils\Mappers\Builders\" />
 	</ItemGroup>
 </Project>
