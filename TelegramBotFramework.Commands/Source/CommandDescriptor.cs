@@ -2,12 +2,12 @@
 
 namespace TelegramBotFramework.Commands {
     internal enum CommandType {
-        Common, Parameterized, StepByStep
+        Common, Parameterized, Stateless
     }
 
     internal record CommandDescriptor(
         string Code,
-        string? Description,
+        string? Help,
         CommandType Type,
         IEnumerable<ChatType> AvailableChatTypes);
 }

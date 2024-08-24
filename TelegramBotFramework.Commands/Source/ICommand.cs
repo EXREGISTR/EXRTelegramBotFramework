@@ -1,11 +1,9 @@
-﻿using TelegramBotFramework.Commands.Contexts;
-
-namespace TelegramBotFramework.Commands {
+﻿namespace TelegramBotFramework.Commands {
     public interface ICommand {
         public Task Execute(CommandContext context);
     }
 
-    public interface ICommand<TData> where TData : class {
+    public interface ICommand<TData> {
         public Task Execute(CommandContext<TData> context);
     }
 }

@@ -13,5 +13,12 @@
   <ItemGroup>
     <ProjectReference Include="..\TelegramBotFramework\TelegramBotFramework.csproj" />
   </ItemGroup>
-
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>TelegramBotFramework.Tests</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Utils\Mappers\Builders\" />
+	</ItemGroup>
 </Project>

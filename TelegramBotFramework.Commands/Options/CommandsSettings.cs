@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
-using TelegramBotFramework.Commands.Storages.Contracts;
-using TelegramBotFramework.Commands.Storages.DistributeCached;
-using TelegramBotFramework.Storages.MemoryCached;
+using TelegramBotFramework.Commands.Storages;
+using TelegramBotFramework.Commands.Storages.Cached;
 
-namespace TelegramBotFramework.Commands.Options {
+namespace TelegramBotFramework.Commands.Options
+{
     public class CommandsSettings {
         private readonly IServiceCollection services;
 
@@ -19,8 +19,7 @@ namespace TelegramBotFramework.Commands.Options {
                 services.AddMemoryCache();
             }
 
-            services.AddSingleton<ICommandStepsDataStorage, CommandStepsDataMemoryCached>();
-            services.AddSingleton<IUserCommandStatesStorage, UserStatesMemoryCached>();
+            services.AddSingleton(typeof(ICommandsDataStorage), typeof(MemoryCachedStatesStorage));
         }
 
         public void UseDistributeCachedStorages(Action<MemoryDistributedCacheOptions>? configurator = null) {
@@ -30,8 +29,7 @@ namespace TelegramBotFramework.Commands.Options {
                 services.AddDistributedMemoryCache();
             }
 
-            services.AddSingleton<ICommandStepsDataStorage, CommandStepsDataDistributeCached>();
-            services.AddSingleton<IUserCommandStatesStorage, UserStatesDistributeCached>();
+            services.AddSingleton(typeof(ICommandsDataStorage), typeof(DistributeCachedStatesStorage));
         }
     }
 }
